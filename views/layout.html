@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Northwind Products</title>
+		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">	
+	</head>
+	<body>
+		<nav class="navbar navbar-default">
+		  <div class="container-fluid">
+		    <div class="navbar-header">
+		      <a class="navbar-brand" href="/">Northwind Products</a>
+		    </div>
+		    <div class="collapse navbar-collapse">
+		      <ul class="nav navbar-nav">
+		        <li {% if section==='Welcome, Jason!' %} class="active" {% endif %}><a href="/">Home</a></li>
+		        <li {% if section!=='Welcome, Jason!' %} class="active" {% endif %}><a href="/products">Products</a></li>
+		      </ul>
+		    </div><!-- /.navbar-collapse -->
+	  	</div><!-- /.container-fluid -->
+		</nav>
+
+		<div class="container content">
+			<h4 style="display:inline;float:left">{{section}}</h4>
+			<a href="{{backUrl}}"><button style="float:right" class="btn btn-default">Back</button></a>
+			<hr style="clear:both">
+			<div>
+				{% block content %}{% endblock %}
+			</div>
+		</div>
+
+	</body>
+</html>

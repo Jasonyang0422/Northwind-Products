@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block content %}
+{% if section!=='Active Products' %}<div style="margin-bottom:30px"><a href="/products/active">Show Active Only</a></div>{% endif %}
+{% if section==='Active Products' %}<div style="margin-bottom:30px"><a href="/products">Show All Products</a></div>{% endif %}
+<form method="POST" action="/products">
+	<input type="text" class="form-control" style="width:20%; display:inline;margin-right:160px" placeholder="name" name="name" />
+	<button type="submit" class="btn btn-default">Add a Product</button>
+	<br>
+	<textarea class="form-control" style="margin-top:10px; width:50%" placeholder="Description" name="description"></textarea>
+</form>
+<hr>
+<ul class="list-group">
+	{% for product in products %}
+  {% if !oneproduct || oneproduct.name !== product.name %}<div class="list-group-item" style="height:60px">{% endif %}
+  {% if oneproduct.name === product.name %}<div class="list-group-item" style="height:120px">{% endif %}
+  	<a href="/products/{{product.name}}">{{product.name}}</a>
+  	<form style="display:inline" method="POST" action="/products/{{product.name}}/amount?_method=PUT">
+  		<input type="text" style="position:absolute;left:200px;height:30px;width:30px" placeholder="{{product.amount}}" name="amount" />
+  		<button style="position:absolute;left:300px" type="submit" class="btn btn-default">Update # In Stock</button>
+  	</form>
+  	<form style="display:inline;position:absolute;left:500px" method="POST" action="/products/{{product.name}}/active?_method=PUT">
+  		{% if product.active %}<button type="submit" value=false name="active" class="btn btn-warning">Discontinue</button>{% endif %}
+  		{% if !product.active %}<button type="submit" value=true name="active" class="btn btn-info">Recontinue</button>{% endif %}
+  	</form>
+    {% if oneproduct.name === product.name %}
+    <div style="margin-top:30px">
+      <span style="font-weight:bold">Description:</span>
+      <span>{{product.description}}</span>
+      <form method="POST" action="/products/{{product.name}}?_method=DELETE" style="display:inline;position:absolute;left:500px"><button type="submit" class="btn btn-danger">Delete</button></form>
+    </div>
+    {% endif %}
+  </div>
+  {% endfor %}
+</ul>
+{% endblock %}
