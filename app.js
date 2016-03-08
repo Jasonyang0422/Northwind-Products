@@ -18,6 +18,12 @@ app.get('/', function(req, res, next){
 
 app.use('/products', require('./routes/products'));
 
+app.use(function(err, req, res, next){
+  console.log(err);
+  res.sendStatus(500);
+
+});
+
 
 
 module.exports = app;

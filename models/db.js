@@ -33,11 +33,12 @@ var productsSchema = new mongoose.Schema({
 
 productsSchema.pre('validate', function(next){
 	this.urlTitle = this.name.replace(/\s/g, '_').replace(/\W/g, '');
-	next()
+	next();
 });
 
 var Products = mongoose.model('Products', productsSchema);
 
+//model name should be singular
 module.exports = {
 	Products: Products
 };

@@ -9,16 +9,14 @@ router.get('/', function(req, res, next){
 	Products.find({})
 		.then(function(products){
 			res.render('products', {products: products, section: 'All Products', backUrl: '/'});
-		})
-		.then(null, next);
+		}, next);
 });
 
 router.get('/active', function(req, res, next){
 	Products.find({ active: true })
 		.then(function(products){
 			res.render('products', {products: products, section: 'Active Products', backUrl: '/products'});
-		})
-		.then(null, next);
+		}, next);
 });	
 
 router.get('/:name', function(req, res, next){
@@ -30,15 +28,14 @@ router.get('/:name', function(req, res, next){
 			return Products.findOne({name: name});
 		}).then(function(product){
 			res.render('products', {products: allProducts, oneproduct: product, section: 'All Products', backUrl: '/products'});
-		}).then(null, next);
+		}, next);
 });
 
 router.post('/', function(req, res, next){
 	Products.create(req.body)
 		.then(function(){
 			res.redirect('/products');
-		})
-		.then(null, next);
+		}, next);
 });
 
 router.put('/:name/amount', function(req, res, next){
@@ -51,8 +48,7 @@ router.put('/:name/amount', function(req, res, next){
 		})
 		.then(function(){
 			res.redirect('/products');
-		})
-		.then(null, next);
+		}, next);
 });
 
 router.put('/:name/active', function(req, res, next){
@@ -65,24 +61,12 @@ router.put('/:name/active', function(req, res, next){
 		})
 		.then(function(){
 			res.redirect('/products');
-		})
-		.then(null, next);
+		}, next);
 });
 
 router.delete('/:name', function(req, res, next){
 	Products.remove(req.params)
 		.then(function(){
 			res.redirect('/products');
-		})
-		.then(null, next);
+		}, next);
 });
-
-
-
-
-
-
-
-
-
-

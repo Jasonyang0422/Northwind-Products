@@ -4,6 +4,7 @@
 {% if section!=='Active Products' %}<div style="margin-bottom:30px"><a href="/products/active">Show Active Only</a></div>{% endif %}
 {% if section==='Active Products' %}<div style="margin-bottom:30px"><a href="/products">Show All Products</a></div>{% endif %}
 <form method="POST" action="/products">
+  <!--- try to avoid inline styles -->
 	<input type="text" class="form-control" style="width:20%; display:inline;margin-right:160px" placeholder="name" name="name" />
 	<button type="submit" class="btn btn-default">Add a Product</button>
 	<br>
@@ -11,6 +12,7 @@
 </form>
 <hr>
 <ul class="list-group">
+  <!-- this looks messy. try and clean up using partials or simplify logic -->
 	{% for product in products %}
   {% if !oneproduct || oneproduct.name !== product.name %}<div class="list-group-item" style="height:60px">{% endif %}
   {% if oneproduct.name === product.name %}<div class="list-group-item" style="height:120px">{% endif %}
